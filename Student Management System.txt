@@ -1,0 +1,394 @@
+#include<bits/stdc++.h>
+using namespace std;
+int i =0;
+struct logininfo
+{
+    int password;
+    string name;
+} s[25];
+class Admin
+{
+public:
+    void signup()
+    {
+        system("cls");
+        cout<<"Enter Your Name:"<<endl;
+        cin>>s[i].name;
+        cout<<"Enter Your Password:"<<endl;
+        cin>>s[i].password;
+        cout<<"\t\t***SignUp Successful***"<<endl;
+    }
+    void signin()
+    {
+        system("cls");
+        int passwordchek;
+        string namecheck;
+        cout<<"Enter Your Name:"<<endl;
+        cin>>namecheck;
+        if(namecheck==s[i].name) {}
+        else
+        {
+            cout<<"\t\t***Invalid Name***"<<endl;
+        }
+        cout<<"Enter Your Password:"<<endl;
+        cin>>passwordchek;
+        if(passwordchek==s[i].password) {}
+        else
+        {
+            cout<<"\t\t***Invalid password***"<<endl;
+            cout<<"\n\t\t***You need to create a account***\n"<<endl;
+            show1();
+        }
+        cout<<"\t\t***Signin Successful***"<<endl;
+    }
+
+    void show1()
+    {
+        char choice;
+        cout<<"\t\t***You have an account Y/N ?***"<<endl;
+        cin>>choice;
+        if(choice =='y')
+        {
+            Admin show;
+            show.signin();
+        }
+
+        if(choice =='n')
+        {
+
+            Admin s;
+            s.signup();
+        }
+    }
+};
+class Student
+{
+private:
+    int roll;
+    string name,grade;
+    float mark;
+public:
+    Student(int stdroll,string stdname,string stdgrade,float stdmark)
+    {
+        roll = stdroll;
+        name = stdname;
+        grade = stdgrade;
+        mark = stdmark;
+    }
+    void setroll(int stdroll)
+    {
+        roll = stdroll;
+    }
+    int getroll()
+    {
+        return roll;
+    }
+    void setname(string stdname)
+    {
+        name = stdname;
+    }
+    string getname()
+    {
+        return name;
+    }
+    void setgrade(string stdgrade)
+    {
+        grade = stdgrade;
+    }
+    string getgrade()
+    {
+        return grade;
+    }
+    void setmark(float stdmark)
+    {
+        mark = stdmark;
+    }
+    float getmark()
+    {
+        return mark;
+    }
+    void displaystudent()
+    {
+        cout<<"Student Name: "<<name<<endl;
+        cout<<"Student Roll: "<<roll<<endl;
+        cout<<"Student Mark: "<<mark<<endl;
+        if(mark>=80)
+            cout<< "grade :A+"<<endl;
+        else if(mark>=75)
+            cout<< "grade :A"<<endl;
+        else if(mark>=70)
+            cout<< "grade :A-"<<endl;
+        else if(mark>=65)
+            cout<< "grade :B+"<<endl;
+        else if(mark>=60)
+            cout<< "grade :B"<<endl;
+        else if(mark>=55)
+            cout<< "grade :B-"<<endl;
+        else if(mark>=50)
+            cout<< "grade :C+"<<endl;
+        else if(mark>=45)
+            cout<< "grade =C"<<endl;
+        else if(mark>=40)
+            cout<< "grade =C-"<<endl;
+        else
+            cout<<" grade :F"<<endl;
+    }
+};
+class Addstudent
+{
+public:
+    int roll;
+    string name,grade;
+    float mark;
+    void addnewstudent(vector<Student>&students)
+    {
+
+        cout<<"\t\t\t***Add New Student***"<<endl;
+        cout<<"Enter the Student Roll: "<<endl;
+        cin>>roll;
+        for(int i =0; i<students.size(); i++)
+        {
+            if(students[i].getroll()== roll)
+            {
+                cout<<"\t\t***Student already exits***"<<endl;
+                return ;
+            }
+        }
+        cout<<"Enter the Student Name: "<<endl;
+        cin>>name;
+        cout<<"Enter the Student Mark: "<<endl;
+        cin>>mark;
+        if(mark>=80)
+            cout<< "Grade :A+"<<endl;
+        else if(mark>=75)
+            cout<< "Grade :A"<<endl;
+        else if(mark>=70)
+            cout<< "Grade :A-"<<endl;
+        else if(mark>=65)
+            cout<< "Grade :B+"<<endl;
+        else if(mark>=60)
+            cout<< "Grade :B"<<endl;
+        else if(mark>=55)
+            cout<< "Grade :B-"<<endl;
+        else if(mark>=50)
+            cout<< "Grade :C+"<<endl;
+        else if(mark>=45)
+            cout<< "Grade =C"<<endl;
+        else if(mark>=40)
+            cout<< "Grade =C-"<<endl;
+        else
+            cout<<" Grade :F"<<endl;
+        Student newstudents(roll, name, grade,mark);
+        students.push_back(newstudents);
+        cout<<"\t\t***Add New Student Successfully***"<<endl;
+    }
+};
+
+class Display
+{
+public:
+    void displayallstudent(vector<Student>students)
+    {
+        if(students.empty())
+        {
+            cout<<"\t\t***No students found***"<<endl;
+            return;
+        }
+        else
+            for(int i =0; i<students.size(); i++)
+            {
+                students[i].displaystudent();
+                cout<<endl;
+            }
+    }
+};
+class Search
+{
+public:
+    int rollno;
+    void searchstudent(vector<Student> &students)
+    {
+        cout<<"Enter RollNo: "<<endl;
+        cin>>rollno;
+        for(int i =0; i<students.size(); i++)
+        {
+            if(students[i].getroll() == rollno)
+            {
+                cout<<"\t\t***Student found***"<<endl;
+                students[i].displaystudent();
+                return;
+            }
+        }
+    }
+};
+class Update
+{
+public:
+    string sname;
+    bool found;
+    int choice;
+    void upadateStudent(vector<Student> & students)
+    {
+        cout<<"Enter Name to Update Record: "<<endl;
+        cin.ignore();
+        getline(cin,sname);
+        for(int i =0; i<students.size(); i++)
+        {
+            if(students[i].getname() == sname)
+            {
+                found = true;
+                cout<<"\t\t***Student Found***"<<endl;
+                cout<<"1.Update Roll no"<<endl;
+                cout<<"2.Update Name"<<endl;
+                cout<<"3.Update Mark"<<endl;
+                cout<<"Enter Your choice:"<<endl;
+                cin>>choice;
+                switch(choice)
+                {
+                case 1:
+                {
+                    int rollno;
+                    cout<<"Enter New Roll No: "<<endl;
+                    cin>>rollno;
+                    students[i].setroll(rollno);
+                    cout<<"\t\t***New RollNo Update Successfully***"<<endl;
+                    break;
+                }
+                case 2:
+                {
+                    string name;
+                    cout<<"Enter New Name: "<<endl;
+                    cin.ignore();
+                    getline(cin,name);
+                    students[i].setname(name);
+                    cout<<"\t\t***New Name Update Successfully***"<<endl;
+                    break;
+                }
+                case 3:
+                {
+                    float mark;
+                    cout<<"Enter New Mark: "<<endl;
+                    cin>>mark;
+                    students[i].setmark(mark);
+                    if(mark>=80)
+                        cout<< "Grade :A+"<<endl;
+                    else if(mark>=75)
+                        cout<< "Grade :A"<<endl;
+                    else if(mark>=70)
+                        cout<< "Grade :A-"<<endl;
+                    else if(mark>=65)
+                        cout<< "Grade :B+"<<endl;
+                    else if(mark>=60)
+                        cout<< "Grade :B"<<endl;
+                    else if(mark>=55)
+                        cout<< "Grade :B-"<<endl;
+                    else if(mark>=50)
+                        cout<< "Grade :C+"<<endl;
+                    else if(mark>=45)
+                        cout<< "Grade =C"<<endl;
+                    else if(mark>=40)
+                        cout<< "Grade =C-"<<endl;
+                    else
+                    {
+                        cout<<" Grade :F"<<endl;
+                    }
+                    cout<<"\t\t***New RollNo Update Successfully***"<<endl;
+                    break;
+                }
+                default:
+                    cout<<"\t\t***Invalid Number***"<<endl;
+                }
+            }
+        }
+    }
+};
+class Delete
+{
+public:
+    string name;
+    void deleteStudent(vector<Student> &students)
+    {
+        cout<<"Enter Name to Delete: "<<endl;
+        cin.ignore();
+        getline(cin,name);
+        for(int i =0; i<students.size(); i++)
+        {
+            if(students[i].getname()==name)
+            {
+                students.erase((students.begin()+i));
+                cout<<"\t\t***Student Remove Successfully***"<<endl;
+            }
+        }
+    }
+};
+int main()
+{
+    vector<Student>students;
+    int op;
+    char choice,ch;
+
+    Admin a;
+    a.show1();
+p:
+    system("cls");
+    cout<<"\t\t***Student Management System***"<<endl;
+    cout<<"\n1.Add New Student"<<endl;
+    cout<<"\n2.Display all Students"<<endl;
+    cout<<"\n3.Search student"<<endl;
+    cout<<"\n4.Update Student"<<endl;
+    cout<<"\n5.Delete Student"<<endl;
+    cout<<"\n6.Exit"<<endl;
+    cout<<"\nChoice the Item:"<<endl;
+    cin>>op;
+    switch(op)
+    {
+
+    case 1:
+    {
+        Addstudent add;
+        add.addnewstudent(students);
+        break;
+    }
+    case 2:
+    {
+        Display show;
+        show.displayallstudent(students);
+        break;
+    }
+
+    case 3:
+    {
+        Search show;
+        show.searchstudent(students);
+        break;
+    }
+
+    case 4:
+    {
+        Update update;
+        update.upadateStudent(students);
+        break;
+    }
+    case 5:
+    {
+        Delete del;
+        del.deleteStudent(students);
+        break;
+    }
+    case 6:
+        exit(1);
+    default:
+        cout<<"Enter Invalid"<<endl;
+    }
+    cout<<"\nDo you want to continue [Yes / No] ? :"<<endl;
+    cin>>ch;
+    if(ch =='y')
+    {
+        goto p;
+    }
+    else
+    {
+        exit(1);
+    }
+    return 0;
+}
